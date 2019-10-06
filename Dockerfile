@@ -1,11 +1,10 @@
-# docker run -d -p 8000:8000 alseambusher/crontab-ui
-FROM alpine:3.10
+FROM alpine:latest
 
 RUN   mkdir /crontab-ui; touch /etc/crontabs/root; chmod +x /etc/crontabs/root
 
 WORKDIR /crontab-ui
 
-LABEL maintainer "@alseambusher"
+LABEL maintainer "@sadpdtchr"
 LABEL description "Crontab-UI docker"
 
 RUN   apk --no-cache add \
@@ -18,7 +17,8 @@ RUN   apk --no-cache add \
       py-lxml \
       git \
       gcc \
-      libxml2-dev
+      libxml2-dev \
+      python3
 RUN   pip3 install -e git+https://github.com/C2Devel/boto.git@2.46.1-CROC14#egg=boto && pip3 install c2client
 
 COPY supervisord.conf /etc/supervisord.conf
